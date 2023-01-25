@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta name="emotion-insertion-point" content="" />
-          {this.props.emotionStyleTags}
+          {/* {this.props.emotionStyleTags} */}
         </Head>
         <body>
           <Main />
@@ -60,7 +60,7 @@ MyDocument.getInitialProps = async (ctx) => {
     originalRenderPage({
       enhanceApp: (App) =>
         function EnhanceApp(props) {
-          return <App emotionCache={cache} {...props} />;
+          return <App {...props} />;
         },
     });
 

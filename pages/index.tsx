@@ -6,13 +6,13 @@ export default function Home() {
     <div>
       <div className="container">
         <Head>
-          <title>Create Next App</title>
+          <title>Book a dentist</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
       </div>
-      <Button variant="text">Text</Button>
-      <Button variant="contained">Contained</Button>
-      <Button variant="outlined">Outlined</Button>
+      <body>
+        <div>Hello worlds</div>
+      </body>
     </div>
   );
 }
