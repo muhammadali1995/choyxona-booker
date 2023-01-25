@@ -1,5 +1,5 @@
+import { Button } from "@mui/material";
 import Head from "next/head";
-import clientPromise from "../lib/mongodb";
 
 export default function Home() {
   return (
@@ -10,7 +10,9 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
       </div>
-      <div>Hello World</div>
+      <Button variant="text">Text</Button>
+      <Button variant="contained">Contained</Button>
+      <Button variant="outlined">Outlined</Button>
     </div>
   );
 }
