@@ -9,27 +9,29 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useRef, useState } from "react";
 import interactionPlugin from "@fullcalendar/interaction";
+import CreateBooking from "../../src/components/CreateBooking";
 
 export default function BookDentist({ dentist }: { dentist: Dentist }) {
   const calendarRef = useRef();
-  const [events, setEvents] = useState([
+
+  const [openBookingModal, setOpenBookingModal] = useState(false);
+  const [bookingDate, setBookingDate] = useState("");
+  const [events, setEvents] = useState<any>([
     { title: "Meeting with Abu", date: "2023-01-26" },
     { title: "Meeting with Jhn", date: "2023-01-27" },
   ]);
 
-  const handleDateClick = (dateClickInfo: any) => {
-    console.log("Date click ", dateClickInfo);
-    if (calendarRef) {
-      //   calendarRef.current.getApi().changeView('dayGridDay', dateClickInfo.date);
-    }
+  const handleFormSubmit = (values) => {
+
   };
 
   const handleDateSelect = (selectInfo: any) => {
-    console.log("Date select ", selectInfo);
-    let title = prompt("Please enter a new title for your event");
+    setOpenBookingModal(true);
+
     let calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
+    const title = "Booking with ";
     const newEvents = [
       ...events,
       {
@@ -44,49 +46,55 @@ export default function BookDentist({ dentist }: { dentist: Dentist }) {
   };
 
   return (
-    <Layout>
-      <Box sx={{ display: "flex", gap: "20px" }}>
-        <Box sx={{ width: "200px", height: "200px", position: "relative" }}>
-          <Image
-            src={dentist.img}
-            alt={dentist.name}
-            layout="fill"
-            objectFit="contain"
+    <>
+      <Layout>
+        <Box sx={{ display: "flex", gap: "20px" }}>
+          <Box sx={{ width: "200px", height: "200px", position: "relative" }}>
+            <Image
+              src={dentist.img}
+              alt={dentist.name}
+              layout="fill"
+              objectFit="contain"
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Typography variant="h5">{dentist.name}</Typography>
+            <Typography variant="subtitle2" component="p">
+              {dentist.about}
+            </Typography>
+          </Box>
+        </Box>
+        <Box my={2}>
+          <Typography variant="h4">Bookings</Typography>
+        </Box>
+        <Box my={2}>
+          <FullCalendar
+            headerToolbar={{
+              start: "today prev next",
+              end: "dayGridMonth timeGridDay",
+            }}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
+            editable
+            selectable
+            events={events}
+            select={handleDateSelect}
           />
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <Typography variant="h5">{dentist.name}</Typography>
-          <Typography variant="subtitle2" component="p">
-            {dentist.about}
-          </Typography>
-        </Box>
-      </Box>
-      <Box my={2}>
-        <Typography variant="h4">Bookings</Typography>
-      </Box>
-      <Box my={2}>
-        <FullCalendar
-          headerToolbar={{
-            start: "today prev next",
-            end: "dayGridMonth timeGridDay",
-          }}
-          eventClick={handleDateClick}
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          editable
-          selectable
-          events={events}
-          select={handleDateSelect}
-          events={events}
-        />
-      </Box>
-    </Layout>
+      </Layout>
+      <CreateBooking
+        dentist={dentist}
+        bookingDate={bookingDate}
+        open={openBookingModal}
+        handleClose={() => setOpenBookingModal(false)}
+      />
+    </>
   );
 }
 

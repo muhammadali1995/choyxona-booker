@@ -19,6 +19,7 @@ export default async function handler(
         const client = await clientPromise
         const db = client.db("dentist-booker");
         const dentists = await db.collection('dentist').find({}).toArray()
+        console.log(dentists)
         res.json(dentists)
     } else {
         res.send([])

@@ -31,7 +31,9 @@ export default function DentistCard({ dentist }: DentisCardTypes) {
       </CardContent>
       <CardActions>
         <Button variant="contained" sx={{ flexGrow: 1 }}>
-          <StyledLink href={"/book/" + dentist._id}> Book</StyledLink>
+          <StyledLink sx={{ width: "100%" }} href={"/book/" + dentist._id}>
+            Book
+          </StyledLink>
         </Button>
       </CardActions>
     </Card>
