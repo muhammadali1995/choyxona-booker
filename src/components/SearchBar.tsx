@@ -1,5 +1,4 @@
-import { Box, Button, Input, OutlinedInput, TextField } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, TextField } from "@mui/material";
 
 export default function SearchBar({
   handleSearch,
@@ -19,7 +18,9 @@ export default function SearchBar({
         sx={{ flexGrow: 1 }}
         placeholder="Search Dentists"
       />
-      <Button onClick={handleSearch} variant="contained">
+      <Button onClick={() => {
+          handleSearch()
+      }} variant="contained">
         Search
       </Button>
     </Box>
